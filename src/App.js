@@ -5,7 +5,9 @@ import { Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 import { a, useSpring } from '@react-spring/three';
 
-// Animador de la cámara: inicia desde lejos y se anima a [0,0,10]
+import Slide1 from './Slide1';
+
+// Camera animator: starts from afar and animates to [0,0,10]
 function CameraAnimator({ started }) {
   const { camera } = useThree();
   const [{ position }, api] = useSpring(() => ({
@@ -27,12 +29,14 @@ function CameraAnimator({ started }) {
   return null;
 }
 
-// Componente Cube: renderiza el cubo completo con 6 caras, pero muestra contenido solo en las 4 "usadas"
+// Cube component: renders the full cube with 6 faces,
+// but only displays content on the 4 “active” faces.
 function Cube({ slides, faceTransforms, cubeOrientations, currentSlide, started, displayIndex }) {
-  // Usamos un fallback para evitar que cubeOrientations sea undefined
-  const initialOrientation = (cubeOrientations && cubeOrientations.length > 0)
-    ? cubeOrientations[0]
-    : new THREE.Euler(0, 0, 0);
+  // Fallback to ensure cubeOrientations is defined
+  const initialOrientation =
+    cubeOrientations && cubeOrientations.length > 0
+      ? cubeOrientations[0]
+      : new THREE.Euler(0, 0, 0);
   const targetQuat = useRef(new THREE.Quaternion().setFromEuler(initialOrientation));
 
   useEffect(() => {
@@ -41,13 +45,22 @@ function Cube({ slides, faceTransforms, cubeOrientations, currentSlide, started,
     }
   }, [displayIndex, cubeOrientations]);
 
+  const cubeRef = useRef();
   useFrame(() => {
     if (cubeRef.current) {
       cubeRef.current.quaternion.slerp(targetQuat.current, 0.1);
     }
   });
 
-  const cubeRef = useRef();
+  const { color } = useSpring({
+    from: { color: "#333" },
+    to: async (next) => {
+      await next({ color: "#001f3f", config: { duration: 10000 } }); // en 10 segundos pasa a azul oscuro
+      await next({ color: "#333", config: { duration: 10000 } });    // en los siguientes 10 regresa al original
+    },
+    loop: true,
+  });
+
 
   return (
     <group ref={cubeRef}>
@@ -55,39 +68,52 @@ function Cube({ slides, faceTransforms, cubeOrientations, currentSlide, started,
         <group key={i} position={ft.pos} rotation={ft.rot}>
           <mesh>
             <planeGeometry args={[8, 8]} />
-            <meshBasicMaterial color="#333" opacity={0.8} transparent side={THREE.DoubleSide} />
+            <a.meshBasicMaterial
+              color={color}
+              opacity={0.8}
+              transparent
+              side={THREE.DoubleSide}
+            />
           </mesh>
-          {/* Mostramos el contenido sólo en las caras usadas (índices 0-3) y solo en la cara activa */}
+
+          {/* Only render content on the active face (indices 0-3) */}
           {started && i < 4 && i === displayIndex && (
             <>
-              <Billboard>
-                <Text
-                  position={[0, 1.5, 0.11]}
-                  fontSize={0.8}
-                  color="#fff"
-                  anchorX="center"
-                  anchorY="center"
-                  depthTest={false}
-                  renderOrder={2}
-                >
-                  {slides[currentSlide].title}
-                </Text>
-              </Billboard>
-              <Billboard>
-                <Text
-                  position={[0, 0.2, 0.11]}
-                  fontSize={0.4}
-                  color="#fff"
-                  maxWidth={6.5}
-                  lineHeight={1.2}
-                  anchorX="center"
-                  anchorY="top"
-                  depthTest={false}
-                  renderOrder={2}
-                >
-                  {slides[currentSlide].content}
-                </Text>
-              </Billboard>
+              {slides[currentSlide].component ? (
+                // Render custom component if provided for this slide
+                slides[currentSlide].component
+              ) : (
+                <>
+                  <Billboard>
+                    <Text
+                      position={[0, 1.5, 0.11]}
+                      fontSize={0.8}
+                      color="#fff"
+                      anchorX="center"
+                      anchorY="center"
+                      depthTest={false}
+                      renderOrder={2}
+                    >
+                      {slides[currentSlide].title}
+                    </Text>
+                  </Billboard>
+                  <Billboard>
+                    <Text
+                      position={[0, 0.2, 0.11]}
+                      fontSize={0.4}
+                      color="#fff"
+                      maxWidth={6.5}
+                      lineHeight={1.2}
+                      anchorX="center"
+                      anchorY="top"
+                      depthTest={false}
+                      renderOrder={2}
+                    >
+                      {slides[currentSlide].content}
+                    </Text>
+                  </Billboard>
+                </>
+              )}
             </>
           )}
         </group>
@@ -97,12 +123,11 @@ function Cube({ slides, faceTransforms, cubeOrientations, currentSlide, started,
 }
 
 function App() {
-  // Definición de los slides
+  // Define slides: the first slide now uses the custom Slide1 component,
+  // while the others remain as text objects.
   const slides = [
     {
-      title: "Definition",
-      content:
-        "• Euthanasia is intentionally ending a life to relieve suffering.\n• Also called 'mercy killing'.\n• Aims to alleviate unbearable pain.",
+      component: <Slide1 />, // Custom slide imported from a separate file
     },
     {
       title: "Types of Euthanasia",
@@ -131,38 +156,38 @@ function App() {
     },
   ];
 
-  // Definimos el arreglo completo de 6 caras (para el cubo)
-  const fullFaceTransforms = useMemo(() => [
-    { pos: [0, 0, 4], rot: [0, 0, 0] },             // Front
-    { pos: [4, 0, 0], rot: [0, -Math.PI / 2, 0] },   // Right
-    { pos: [0, 0, -4], rot: [0, Math.PI, 0] },        // Back
-    { pos: [-4, 0, 0], rot: [0, Math.PI / 2, 0] },    // Left
-    { pos: [0, 4, 0], rot: [-Math.PI / 2, 0, 0] },    // Top
-    { pos: [0, -4, 0], rot: [Math.PI / 2, 0, 0] },    // Bottom
-  ], []);
+  // Define complete face transforms for the cube
+  const fullFaceTransforms = useMemo(
+    () => [
+      { pos: [0, 0, 4], rot: [0, 0, 0] }, // Front
+      { pos: [4, 0, 0], rot: [0, -Math.PI / 2, 0] }, // Right
+      { pos: [0, 0, -4], rot: [0, Math.PI, 0] }, // Back
+      { pos: [-4, 0, 0], rot: [0, Math.PI / 2, 0] }, // Left
+      { pos: [0, 4, 0], rot: [-Math.PI / 2, 0, 0] }, // Top
+      { pos: [0, -4, 0], rot: [Math.PI / 2, 0, 0] }, // Bottom
+    ],
+    []
+  );
 
-  // Estado
+  // State management
   const [currentSlide, setCurrentSlide] = useState(0);
   const [started, setStarted] = useState(false);
-
-  // Calculamos displayIndex: para slides 0-3, es currentSlide; para slides ≥ 4, usamos currentSlide % 4.
   const displayIndex = currentSlide < 4 ? currentSlide : currentSlide % 4;
+  const fullOrientations = useMemo(
+    () => fullFaceTransforms.map((ft) => new THREE.Euler(...ft.rot)),
+    [fullFaceTransforms]
+  );
 
-  // Calculamos las orientaciones para el cubo completo (6 caras)
-  const fullOrientations = useMemo(() => fullFaceTransforms.map(ft => new THREE.Euler(...ft.rot)), [fullFaceTransforms]);
-
-  // handleClick: el primer clic inicia la animación; luego, clic izquierdo avanza, clic derecho retrocede.
+  // Click handler: first click starts the animation, then left/right click navigates
   const handleClick = (e) => {
     if (!started) {
       setStarted(true);
       return;
     }
     if (e.clientX < window.innerWidth / 2) {
-      setCurrentSlide(s => (s > 0 ? s - 1 : s));
-      
+      setCurrentSlide((s) => (s > 0 ? s - 1 : s));
     } else {
-      setCurrentSlide(s => (s + 1) % slides.length);
-
+      setCurrentSlide((s) => (s + 1) % slides.length);
     }
   };
 
@@ -175,7 +200,6 @@ function App() {
           slides={slides}
           faceTransforms={fullFaceTransforms}
           cubeOrientations={fullOrientations}
-          orientations={fullOrientations}
           currentSlide={currentSlide}
           started={started}
           displayIndex={displayIndex}
