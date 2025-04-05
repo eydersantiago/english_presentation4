@@ -6,6 +6,8 @@ import * as THREE from 'three';
 import { a, useSpring } from '@react-spring/three';
 
 import Slide1 from './Slide1';
+import Slide2 from './Slide2';
+import Slide3 from './Slide3';
 
 // Camera animator: starts from afar and animates to [0,0,10]
 function CameraAnimator({ started }) {
@@ -81,7 +83,7 @@ function Cube({ slides, faceTransforms, cubeOrientations, currentSlide, started,
             <>
               {slides[currentSlide].component ? (
                 // Render custom component if provided for this slide
-                slides[currentSlide].component
+                React.cloneElement(slides[currentSlide].component, { active: true })
               ) : (
                 <>
                   <Billboard>

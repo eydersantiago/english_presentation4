@@ -1,7 +1,7 @@
 import React from 'react';
 import { Billboard, Text, Image } from '@react-three/drei';
 
-const Slide1 = () => {
+const Slide2 = () => {
   return (
     <>
       {/* Title at the top (translated to English) */}
@@ -42,11 +42,11 @@ const Slide1 = () => {
       {/* You can add more images or gifs similarly */}
       <Image
         url="/statics/image1.png"
-        position={[-2.7, -0.35, 0.1]}
+        position={[-2.7, 0, 0.1]}
         scale={[1.5, 1.5, 1.5]}
       />
     </>
   );
 };
 
-export default Slide1;
+export default Slide2;
