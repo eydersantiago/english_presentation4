@@ -1,6 +1,7 @@
 import React from 'react';
 import { Billboard, Image } from '@react-three/drei';
 import { FadeInText } from './efects/TextAnimations';
+import Gif from './efects/Gif';
 
 const Slide1 = () => {
   return (
@@ -39,6 +40,19 @@ const Slide1 = () => {
         position={[-2.7, -0.35, 0.1]}
         scale={[1.5, 1.5, 1.5]}
       />
+      <Gif 
+        url="/statics/latidos.mp4" 
+        position={[0.7, -0.75, 0.1]}
+        scale={[4.5, 0.73125]} 
+        renderOrder={3}
+      />
+      <Gif 
+        url="/statics/latidos.mp4" 
+        position={[0.7, 0, 0.1]}
+        scale={[4.5, 0.73125]} 
+        renderOrder={3}
+      />
+
     </>
   );
 };
