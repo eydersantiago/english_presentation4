@@ -1,3 +1,4 @@
+// App.js
 import './App.css';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
@@ -8,6 +9,7 @@ import { a, useSpring } from '@react-spring/three';
 import Slide1 from './Slide1';
 import Slide2 from './Slide2';
 import Slide3 from './Slide3';
+import InteractiveBackground from './efects/InteractiveBackground';  // Importa el fondo interactivo
 
 // Camera animator: starts from afar and animates to [0,0,10]
 function CameraAnimator({ started }) {
@@ -34,7 +36,6 @@ function CameraAnimator({ started }) {
 // Cube component: renders the full cube with 6 faces,
 // but only displays content on the 4 “active” faces.
 function Cube({ slides, faceTransforms, cubeOrientations, currentSlide, started, displayIndex }) {
-  // Fallback to ensure cubeOrientations is defined
   const initialOrientation =
     cubeOrientations && cubeOrientations.length > 0
       ? cubeOrientations[0]
@@ -57,12 +58,11 @@ function Cube({ slides, faceTransforms, cubeOrientations, currentSlide, started,
   const { color } = useSpring({
     from: { color: "#333" },
     to: async (next) => {
-      await next({ color: "#001f3f", config: { duration: 10000 } }); // en 10 segundos pasa a azul oscuro
-      await next({ color: "#333", config: { duration: 10000 } });    // en los siguientes 10 regresa al original
+      await next({ color: "#001f3f", config: { duration: 10000 } });
+      await next({ color: "#333", config: { duration: 10000 } });
     },
     loop: true,
   });
-
 
   return (
     <group ref={cubeRef}>
@@ -77,12 +77,9 @@ function Cube({ slides, faceTransforms, cubeOrientations, currentSlide, started,
               side={THREE.DoubleSide}
             />
           </mesh>
-
-          {/* Only render content on the active face (indices 0-3) */}
           {started && i < 4 && i === displayIndex && (
             <>
               {slides[currentSlide].component ? (
-                // Render custom component if provided for this slide
                 React.cloneElement(slides[currentSlide].component, { active: true })
               ) : (
                 <>
@@ -125,16 +122,12 @@ function Cube({ slides, faceTransforms, cubeOrientations, currentSlide, started,
 }
 
 function App() {
-  // Define slides: the first slide now uses the custom Slide1 component,
-  // while the others remain as text objects.
   const slides = [
     {
-      component: <Slide1 />, // Custom slide imported from a separate file
+      component: <Slide1 />,
     },
     {
-
-      component: <Slide2 />, // Custom slide imported from a separate file
-
+      component: <Slide2 />,
     },
     {
       title: "Types of Euthanasia",
@@ -163,20 +156,18 @@ function App() {
     },
   ];
 
-  // Define complete face transforms for the cube
   const fullFaceTransforms = useMemo(
     () => [
-      { pos: [0, 0, 4], rot: [0, 0, 0] }, // Front
-      { pos: [4, 0, 0], rot: [0, -Math.PI / 2, 0] }, // Right
-      { pos: [0, 0, -4], rot: [0, Math.PI, 0] }, // Back
-      { pos: [-4, 0, 0], rot: [0, Math.PI / 2, 0] }, // Left
-      { pos: [0, 4, 0], rot: [-Math.PI / 2, 0, 0] }, // Top
-      { pos: [0, -4, 0], rot: [Math.PI / 2, 0, 0] }, // Bottom
+      { pos: [0, 0, 4], rot: [0, 0, 0] },
+      { pos: [4, 0, 0], rot: [0, -Math.PI / 2, 0] },
+      { pos: [0, 0, -4], rot: [0, Math.PI, 0] },
+      { pos: [-4, 0, 0], rot: [0, Math.PI / 2, 0] },
+      { pos: [0, 4, 0], rot: [-Math.PI / 2, 0, 0] },
+      { pos: [0, -4, 0], rot: [Math.PI / 2, 0, 0] },
     ],
     []
   );
 
-  // State management
   const [currentSlide, setCurrentSlide] = useState(0);
   const [started, setStarted] = useState(false);
   const displayIndex = currentSlide < 4 ? currentSlide : currentSlide % 4;
@@ -185,7 +176,6 @@ function App() {
     [fullFaceTransforms]
   );
 
-  // Click handler: first click starts the animation, then left/right click navigates
   const handleClick = (e) => {
     if (!started) {
       setStarted(true);
@@ -202,6 +192,8 @@ function App() {
     <div style={{ width: '100vw', height: '100vh', background: '#000' }}>
       <Canvas camera={{ position: [0, 30, 10], fov: 50 }} dpr={[1, 2]} onClick={handleClick}>
         <ambientLight intensity={0.5} />
+        {/* Fondo interactivo */}
+        <InteractiveBackground />
         <CameraAnimator started={started} />
         <Cube
           slides={slides}
