@@ -44,9 +44,9 @@ const InteractiveBackground = () => {
       const oscillationZ = Math.sin(time * 2 + i * 0.02) * 2;
 
       // Combinamos la posición base, el ruido, la influencia del mouse y la oscilación
-      positions[ix] = basePositions[ix] + noiseX * 2 + mouse.x * 0.2 + oscillationX;
-      positions[iy] = basePositions[iy] + noiseY * 2 + mouse.y * 0.2 + oscillationY;
-      positions[iz] = basePositions[iz] + noiseZ * 2 + oscillationZ;
+      positions[ix] = basePositions[ix] + noiseX * 5 + mouse.x * 4 + oscillationX;
+      positions[iy] = basePositions[iy] + noiseY * 5 + mouse.y * 4 + oscillationY;
+      positions[iz] = basePositions[iz] + noiseZ * 5 + oscillationZ;
     }
     particlesRef.current.geometry.attributes.position.needsUpdate = true;
   });

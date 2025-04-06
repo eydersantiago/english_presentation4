@@ -92,8 +92,8 @@ export function PulseText({ children, active = true, ...props }) {
       api.start({
         loop: { reverse: true },
         from: { scale: [1, 1, 1] },
-        to: { scale: [1.2, 1.2, 1.2] },
-        config: { duration: 500 },
+        to: { scale: [1.05, 1.05, 1.05] },
+        config: { duration: 1000 },
       });
     } else {
       api.stop();

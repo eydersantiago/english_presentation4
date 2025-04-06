@@ -130,12 +130,10 @@ function App() {
       component: <Slide2 />,
     },
     {
-      title: "Types of Euthanasia",
-      content:
-        "• Voluntary: with patient consent.\n• Non-voluntary: patient unable to consent.\n• Involuntary: against patient's will (illegal).\n• Active: deliberate act (e.g. lethal injection).\n• Passive: withholding life-sustaining treatment.",
+      component: <Slide3 />,
     },
     {
-      title: "Legal and Ethical Issues",
+      title: "Legal framework of euthanasia",
       content:
         "• Legal in a few countries under strict conditions (e.g. Netherlands, Belgium).\n• Illegal in many places; often seen as against medical ethics.\n• Ethical debates: autonomy vs sanctity of life, doctors' duties, slippery slope.",
     },
