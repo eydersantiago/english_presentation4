@@ -68,7 +68,7 @@ function Cube({ slides, faceTransforms, cubeOrientations, currentSlide, started,
     <group ref={cubeRef}>
       {faceTransforms.map((ft, i) => (
         <group key={i} position={ft.pos} rotation={ft.rot}>
-          <mesh>
+          <mesh renderOrder={0}>
             <planeGeometry args={[8, 8]} />
             <a.meshBasicMaterial
               color={color}
@@ -130,6 +130,11 @@ function App() {
   const slides = [
     {
       component: <Slide1 />, // Custom slide imported from a separate file
+    },
+    {
+
+      component: <Slide2 />, // Custom slide imported from a separate file
+
     },
     {
       title: "Types of Euthanasia",

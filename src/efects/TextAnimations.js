@@ -3,37 +3,32 @@ import React from 'react';
 import { animated, useSpring } from '@react-spring/three';
 import { Text, Billboard } from '@react-three/drei';
 
+
 // Creamos un Text animado para poder aplicar las animaciones
 const AnimatedText = animated(Text);
 
 export function FadeInText({ children, color = 'white', active = true, ...props }) {
-  const [springs, api] = useSpring(() => ({
-    opacity: 0,
-    config: { tension: 120, friction: 14 },
-    immediate: true,
-  }));
-
-  React.useEffect(() => {
-    if (active) {
-      api.start({ opacity: 1, from: { opacity: 0 } });
-    } else {
-      api.start({ opacity: 0, immediate: true });
-    }
-  }, [active, api]);
-
-  return (
-    // Uso de Billboard para asegurar que el texto esté siempre frente a la cámara
-    <Billboard>
-      <AnimatedText {...props} color={color} material-toneMapped={false}>
-        {/* Nota: Algunos componentes Text ya aplican un material, por lo que en lugar de anidar un material animado,
-            podemos animar la opacidad transformando el grupo que contiene el texto. */}
-        <animated.group scale={[springs.opacity, springs.opacity, springs.opacity]}>
+    // Anima directamente la propiedad scale del Text
+    const { scale } = useSpring({
+      scale: active ? 1 : 0,
+      config: { tension: 1200, friction: 140 },
+    });
+  
+    return (
+      <Billboard>
+        <AnimatedText
+          {...props}
+          scale={scale}
+          color={color}
+          depthTest={false}           // Para que se renderice encima de otros objetos
+          material-toneMapped={false} // Asegura que el material se vea sin tone mapping
+          //font="/fonts/helvetiker_regular.typeface.json" // Asegúrate de que la ruta sea correcta
+        >
           {children}
-        </animated.group>
-      </AnimatedText>
-    </Billboard>
-  );
-}
+        </AnimatedText>
+      </Billboard>
+    );
+  }
 // Otras animaciones...
 export function SlideInText({ children, direction = 'top', active = true, ...props }) {
   let fromPosition = [0, 0, 0];
