@@ -1,15 +1,15 @@
 import React from 'react';
 import { Billboard, Image } from '@react-three/drei';
-import { PulseText } from './efects/TextAnimations';
-//import Gif from './efects/Gif';
+import { ZoomInText } from './efects/TextAnimations';
+import Gif from './efects/Gif';
 
 
 
-const Slide3 = () => {
+const Slide5 = () => {
   return (
     <>
       <Billboard position={[0, 2, 0.1]}>
-        <PulseText
+        <ZoomInText
           fontSize={0.7}
           color="#fff"
           anchorX="center"
@@ -18,24 +18,62 @@ const Slide3 = () => {
           renderOrder={3}
           active={true}
         >
-          Types of Euthanasia
-        </PulseText>
+          Legal framework 
+        </ZoomInText>
       </Billboard>
 
-      <Billboard position={[-3, 0.5, 0.1]}>
-        <PulseText
-          fontSize={0.15}
-          color="#fff"
-          anchorX="left"
-          anchorY="bottom"
-          depthTest={false}
-          renderOrder={3}
-          active={true}
-        >
-          Active
-        </PulseText>
-      </Billboard>
+        <Billboard position={[0, 1.4, 0.1]}>
+            <ZoomInText
+                fontSize={0.5}
+                color="#fff"
+                anchorX="center"
+                anchorY="middle"
+                depthTest={false}
+                renderOrder={3}
+                active={true}
+            >
+                of euthanasia
+            </ZoomInText>
+        </Billboard>
 
+        <Gif 
+            url="/statics/ley1.mp4" 
+            position={[2.4, 0, 0.1]}
+            scale={[1.5, 1.5]} 
+            renderOrder={3}
+        />
+
+        <Gif 
+            url="/statics/ley2.mp4" 
+            position={[0, 0, 0.1]}
+            scale={[1.5, 1.5]} 
+            renderOrder={3}
+      />
+
+        <Billboard>
+            <Image
+            url="/statics/ley3.jpg"
+            position={[-2.3, 0, 0.1]}
+            scale={[1.5, 1.5, 1.5]}
+            depthTest={false}
+            renderOrder={3}
+            />
+        </Billboard>
+
+        <Billboard position={[-3, -1.75, 0.1]}>
+            <ZoomInText
+                fontSize={0.15}
+                color="#fff"
+                anchorX="left"
+                anchorY="bottom"
+                depthTest={false}
+                renderOrder={3}
+                active={true}
+            >
+                Is the law for euthanasia flexible?
+            </ZoomInText>
+        </Billboard>
+{/* 
       <Billboard>
         <Image
           url="/statics/drugs.png"
@@ -70,7 +108,7 @@ const Slide3 = () => {
         />
       </Billboard>
 
-      <Billboard position={[-3, -1.75, 0.1]}>
+      <Billboard position={[-3, -1.1, 0.1]}>
         <PulseText
           fontSize={0.15}
           color="#fff"
@@ -80,12 +118,11 @@ const Slide3 = () => {
           renderOrder={3}
           active={true}
         >
-          Are you agree with involuntary euthanasia?
+          Voluntary
         </PulseText>
       </Billboard>
 
-
-      {/* <Billboard>
+      <Billboard>
         <Image
           url="/statics/letter.jpg"
           position={[-1.8, -1.8, 0.1]}
@@ -93,7 +130,7 @@ const Slide3 = () => {
           depthTest={false}
           renderOrder={3}
         />
-      </Billboard> */}
+      </Billboard>
 
 
       <Billboard position={[0.7, -1.1, 0.1]}>
@@ -118,45 +155,9 @@ const Slide3 = () => {
           depthTest={false}
           renderOrder={3}
         />
-      </Billboard>
-
-{/* 
-      <Gif 
-        url="/statics/reloj.mp4" 
-        position={[-2.7, 0, 0.1]}
-        scale={[1.2, 1.5]} 
-        renderOrder={3}
-      />
-
-      <Billboard>
-        <Image
-          url="/statics/blood3.png"
-          position={[-1, 0, 0.1]}
-          scale={[1.5, 1.5, 1.5]}
-          depthTest={false}
-          renderOrder={3}
-        />
-      </Billboard>
-
-      <Billboard>
-        <Image
-          url="/statics/blood5.png"
-          position={[0.7, 0, 0.1]}
-          scale={[1.5, 1.5, 1.5]}
-          depthTest={false}
-          renderOrder={3}
-        />
-      </Billboard>
-      
-
-      <Gif 
-        url="/statics/gif_tosiendo.mp4" 
-        position={[2.4, 0, 0.1]}
-        scale={[1.5, 1.5]} 
-        renderOrder={3}
-      /> */}
+      </Billboard> */}
     </>
   );
 };
 
-export default Slide3;
+export default Slide5;

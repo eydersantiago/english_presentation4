@@ -62,17 +62,20 @@ export function SlideInText({ children, direction = 'top', active = true, ...pro
 export function ZoomInText({ children, active = true, ...props }) {
   const [springs, api] = useSpring(() => ({
     scale: [0, 0, 0],
-    config: { tension: 170, friction: 12 },
-    immediate: true,
+    config: { tension: 170, friction: 12, duration: 1500 },
   }));
 
   React.useEffect(() => {
     if (active) {
-      api.start({ scale: [1, 1, 1], from: { scale: [0, 0, 0] } });
+      api.start({
+        scale: [1, 1, 1],
+        from: { scale: [0.5, 0.5, 0.5] },
+        config: { duration: 1500 }, // Animación más lenta
+      });
     } else {
       api.start({ scale: [0, 0, 0], immediate: true });
     }
-  }, [active]);
+  }, [active, api]);
 
   return (
     <AnimatedText {...props} scale={springs.scale}>
@@ -80,6 +83,7 @@ export function ZoomInText({ children, active = true, ...props }) {
     </AnimatedText>
   );
 }
+
 
 export function PulseText({ children, active = true, ...props }) {
   const [springs, api] = useSpring(() => ({
@@ -105,6 +109,41 @@ export function PulseText({ children, active = true, ...props }) {
     <AnimatedText {...props} scale={springs.scale}>
       {children}
     </AnimatedText>
+  );
+}
+
+
+export function BounceText({ children, active = true, ...props }) {
+  const [springs, api] = useSpring(() => ({
+    position: [0, 0, 0],
+    config: { duration: 800 },
+  }));
+
+  React.useEffect(() => {
+    if (active) {
+      api.start({
+        from: { position: [0, 0, 0] },
+        to: { position: [0, 0.15, 0] }, // Solo se altera la coordenada Y
+        loop: { reverse: true },
+        config: { duration: 800 },
+      });
+    } else {
+      api.stop();
+      api.start({ position: [0, 0, 0], immediate: true });
+    }
+  }, [active, api]);
+
+  return (
+    <Billboard>
+      <AnimatedText
+        {...props}
+        position={springs.position}
+        depthTest={false}           // Se renderiza encima de otros objetos
+        material-toneMapped={false} // Se muestra sin tone mapping
+      >
+        {children}
+      </AnimatedText>
+    </Billboard>
   );
 }
 

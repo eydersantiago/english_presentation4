@@ -11,7 +11,7 @@ const Slide2 = () => {
     <>
       <Billboard position={[0, 2, -0.1]}>
         <ZoomInText
-          fontSize={0.8}
+          fontSize={0.7}
           color="#fff"
           anchorX="center"
           anchorY="middle"

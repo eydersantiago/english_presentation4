@@ -9,7 +9,13 @@ import { a, useSpring } from '@react-spring/three';
 import Slide1 from './Slide1';
 import Slide2 from './Slide2';
 import Slide3 from './Slide3';
+import Slide4 from './Slide4';
 import InteractiveBackground from './efects/InteractiveBackground';  // Importa el fondo interactivo
+import Slide5 from './Slide5';
+import Slide6 from './Slide6';
+import Slide7 from './Slide7';
+import Slide8 from './Slide8';
+import Slide9 from './Slide9';
 
 // Camera animator: starts from afar and animates to [0,0,10]
 function CameraAnimator({ started }) {
@@ -133,24 +139,22 @@ function App() {
       component: <Slide3 />,
     },
     {
-      title: "Legal framework of euthanasia",
-      content:
-        "• Legal in a few countries under strict conditions (e.g. Netherlands, Belgium).\n• Illegal in many places; often seen as against medical ethics.\n• Ethical debates: autonomy vs sanctity of life, doctors' duties, slippery slope.",
+      component: <Slide4 />,
     },
     {
-      title: "Arguments For",
-      content:
-        "• Respects personal choice and the right to die with dignity.\n• Can prevent unbearable suffering when no recovery is possible.\n• Provides a way to avoid prolonged pain and loss of quality of life.",
+      component: <Slide5 />,
     },
     {
-      title: "Arguments Against",
-      content:
-        "• Preservation of life: not all terminal illness causes unmanageable pain.\n• Palliative care can relieve suffering without killing the patient.\n• Risk of abuse or pressure on vulnerable people; slippery slope concerns.",
+      component: <Slide6 />,
     },
     {
-      title: "Global Perspectives",
-      content:
-        "• Active euthanasia is legal in only a few countries (e.g. BE, NL, CA).\n• Some places allow physician-assisted suicide (e.g. certain US states).\n• Most nations prohibit it; debates continue worldwide.",
+      component: <Slide7 />,
+    },
+    {
+      component: <Slide8 />,
+    },
+    {
+      component: <Slide9 />,
     },
   ];
 
