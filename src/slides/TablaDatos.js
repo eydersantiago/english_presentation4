@@ -43,7 +43,7 @@ export default function TablaEutanasia() {
           margin: 'auto',
           background: 'rgba(238, 206, 170, 0.9)',
           borderRadius: '8px',
-          transform: 'scale(1.2)', // Aumenta el tamaño en un 20%
+          transform: 'scale(0.85)', // Aumenta el tamaño en un 20%
           transformOrigin: 'center',
         }}
       >

@@ -37,7 +37,7 @@ const Slide4 = () => {
       </BounceText>
     </Billboard>
 
-    <Billboard position={[3, 0.5, -0.1]}>
+    <Billboard position={[3, 1.2, -0.1]}>
       <TablaEutanasia />
     </Billboard>
 {/* 

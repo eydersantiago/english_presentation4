@@ -18,7 +18,7 @@ const Slide8 = () => {
           renderOrder={3}
           active={true}
         >
-          Gracias por su atención
+          Conclusion
         </PulseText>
       </Billboard>
 

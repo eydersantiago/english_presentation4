@@ -51,6 +51,16 @@ const Slide6 = () => {
                 What is my opinion?
             </PulseText>
         </Billboard>
+
+        <Billboard>
+            <Image
+              url="/statics/agree.png"
+              position={[0, 0, 0.1]}
+              scale={[1.5, 1.5, 1.5]}
+              depthTest={false}
+              renderOrder={3}
+            />
+          </Billboard>
     </>
   );
 };

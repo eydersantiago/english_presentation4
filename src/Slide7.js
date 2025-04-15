@@ -51,6 +51,17 @@ const Slide7 = () => {
                 What is my opinion?
             </ZoomInText>
         </Billboard>
+
+
+        <Billboard>
+            <Image
+              url="/statics/disagree.png"
+              position={[0, 0, 0.1]}
+              scale={[1.5, 1.5, 1.5]}
+              depthTest={false}
+              renderOrder={3}
+            />
+          </Billboard>
     </>
   );
 };
