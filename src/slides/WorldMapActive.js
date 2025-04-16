@@ -113,7 +113,12 @@ export default function WorldMapActive({ active }) {
       {countries.map((feature, idx) => {
         // Se asume que el feature tiene una propiedad ISO_A3 para identificar el país.
         const iso = feature.properties.iso_a3 || `no-iso-${idx}`
-        const info = legalInfoActive[iso] || { legal: 'Unknown', details: 'Datos no disponibles' }
+        // Clonamos el objeto legalInfo y le añadimos el nombre real del país
+       const baseInfo = legalInfoActive[iso] || { legal: 'Unknown', details: 'Datos no disponibles' }
+       const info = {
+         ...baseInfo,
+         name: feature.properties.name  // <-- aquí capturas el nombre
+       }
         const key = `${iso}-${idx}`
         return (
           <CountryMesh key={key} feature={feature} countryData={info} active={active} />

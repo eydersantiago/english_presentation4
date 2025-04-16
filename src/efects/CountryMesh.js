@@ -25,6 +25,7 @@ function createShapeFromCoordinates(coords) {
 
 export default function CountryMesh({ feature, countryData, active }) {
     const [hovered, setHovered] = useState(false)
+    const [tooltipPos, setTooltipPos] = useState([0, 0, 0])
   
     // 1) Generamos los shapes como antes
     const shapes = useMemo(() => {
@@ -60,6 +61,7 @@ export default function CountryMesh({ feature, countryData, active }) {
         onPointerOver={e => {
           e.stopPropagation()
           setHovered(true)
+          setTooltipPos([e.point.x, e.point.y, e.point.z + 1])
           e.object.scale.set(1.05, 1.05, 1.05)
         }}
         onPointerOut={e => {
@@ -85,19 +87,28 @@ export default function CountryMesh({ feature, countryData, active }) {
   
         {/* Tooltip */}
         {hovered && (
-          <Html center position={[0, 0, 0.1]}>
-            <div style={{
-              background: 'white',
-              padding: '4px 8px',
-              borderRadius: '4px',
-              border: '1px solid #333',
-              fontSize: '12px',
-              whiteSpace: 'nowrap',
-            }}>
-              {countryData.legal}
-            </div>
-          </Html>
-        )}
+            <Html
+                position={tooltipPos}
+                center
+                style={{
+                pointerEvents: 'none',
+                transform: 'translate(-50%, -100%)',
+                }}
+            >
+    <div style={{
+            background: 'rgba(0,0,0,0.75)',
+            color: 'white',
+            padding: '6px 12px',
+            borderRadius: '4px',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
+            fontSize: '14px',
+            whiteSpace: 'nowrap',
+        }}>
+            <strong>{countryData.name}</strong><br/>
+            {countryData.legal}
+    </div>
+            </Html>
+            )}
       </mesh>
     )
   }
