@@ -1,30 +1,37 @@
-import React from 'react';
-import { Billboard, Image } from '@react-three/drei';
-import { PulseText } from './efects/TextAnimations';
-//import Gif from './efects/Gif';
+import React from 'react'
+import WorldMapColombia from './slides/WorldMapColombia'
+import { Billboard, OrbitControls } from '@react-three/drei'
+import { PulseText } from './efects/TextAnimations'
 
-
-//cOLOCAR UN GIF DE DESPEDIDA
-const Slide8 = () => {
+export default function Slide8({ active }) {
   return (
     <>
-      <Billboard position={[0, 2, -0.1]}>
+      <OrbitControls 
+        enableRotate={false}
+        enableZoom={true}
+        minDistance={50}
+        maxDistance={500}
+      />
+
+        <WorldMapColombia active={active} />
+
+      <Billboard 
+        position={[-180, 100, 2]} 
+        renderOrder={100} 
+        follow={false}
+      >
         <PulseText
-          fontSize={0.7}
+          fontSize={10}
           color="#fff"
           anchorX="center"
           anchorY="middle"
           depthTest={false}
-          renderOrder={3}
+          renderOrder={99}
           active={true}
         >
-          Conclusion
+          law on euthanasia in Colombia
         </PulseText>
       </Billboard>
-
-
     </>
-  );
-};
-
-export default Slide8;
+  )
+}

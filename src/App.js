@@ -15,6 +15,7 @@ import InteractiveBackground from './efects/InteractiveBackground';  // Importa 
 import Slide6 from './Slide6';
 import Slide7 from './Slide7';
 import Slide8 from './Slide8';
+import Slide88 from './Slide88';
 import Slide9 from './Slide9';
 import Slide66 from './Slide66';
 import Slide77 from './Slide77';
@@ -42,6 +43,12 @@ function CameraAnimator({ started, currentSlide }) {
         // Slide5: cámara intermedia (ajusta valores según necesites)
         api.start({ position: [0, 0, 300] })
         break
+
+      case 7:
+        // Slide8: cámara intermedia (ajusta valores según necesites)
+        api.start({ position: [0, 0, 300] })
+        break
+  
 
       default:
         // Slides 1–9: posición por defecto
@@ -227,6 +234,8 @@ function App() {
               return <Slide4 active={started} />
             case 4:
               return <Slide5 active={started} />
+            case 7:
+              return <Slide8 active={started} />
             default:
               return (
                 <Cube
