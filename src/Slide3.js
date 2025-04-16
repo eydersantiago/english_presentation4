@@ -120,6 +120,16 @@ const Slide3 = () => {
         />
       </Billboard>
 
+      <Image
+        url="/statics/border2.png"
+        position={[0, 0, 0.1]}
+        scale={[11.6, 5.5, 0.1]}
+        transparent={true}      // habilita transparencia
+        alphaTest={0.1}         // descarta píxeles con alpha < 0.1
+        depthTest={false}       // siempre encima de lo que haya detrás
+        renderOrder={3}
+      />
+
 {/* 
       <Gif 
         url="/statics/reloj.mp4" 

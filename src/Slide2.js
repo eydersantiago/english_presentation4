@@ -72,18 +72,18 @@ const Slide2 = () => {
         renderOrder={3}
       />
 
-        <Gif 
-          url="/statics/latidos.mp4" 
-          position={[1.5, -1.7, 0.1]}
-          scale={[4.5, 0.73125]} 
-          renderOrder={3}
-        />
-        <Gif 
-          url="/statics/latidos.mp4" 
-          position={[1.5, -2.4, 0.1]}
-          scale={[4.5, 0.73125]} 
-          renderOrder={3}
-        />
+      <Gif 
+        url="/statics/latidos.mp4" 
+        position={[1.5, -1.7, 0.1]}
+        scale={[4.5, 0.73125]} 
+        renderOrder={3}
+      />
+      <Gif 
+        url="/statics/latidos.mp4" 
+        position={[1.5, -2.4, 0.1]}
+        scale={[4.5, 0.73125]} 
+        renderOrder={3}
+      />
     </>
   );
 };
