@@ -16,29 +16,45 @@ import Slide6 from './Slide6';
 import Slide7 from './Slide7';
 import Slide8 from './Slide8';
 import Slide9 from './Slide9';
+import Slide10 from './Slide10';
+import Slide11 from './Slide11';
 
 // Camera animator: starts from afar and animates to [0,0,10]
-function CameraAnimator({ started }) {
-  const { camera } = useThree();
+function CameraAnimator({ started, currentSlide }) {
+  const { camera } = useThree()
   const [{ position }, api] = useSpring(() => ({
-    position: [0, 30, 10],
+    position: [0, 30, 10], // posición por defecto
     config: { mass: 1, tension: 170, friction: 26 },
-  }));
+  }))
 
   useEffect(() => {
-    if (started) {
-      api.start({ position: [0, 0, 10] });
+    if (!started) return
+
+    switch (currentSlide) {
+      case 9:
+        // Slide10: cámara alejada para el mapa
+        api.start({ position: [0, 0, 300] })
+        break
+
+      case 10:
+        // Slide11: cámara intermedia (ajusta valores según necesites)
+        api.start({ position: [0, 0, 300] })
+        break
+
+      default:
+        // Slides 1–9: posición por defecto
+        api.start({ position: [0, 0, 10] })
+        break
     }
-  }, [started, api]);
+  }, [started, currentSlide, api])
 
   useFrame(() => {
-    camera.position.set(...position.get());
-    camera.lookAt(0, 0, 0);
-  });
+    camera.position.set(...position.get())
+    camera.lookAt(0, 0, 0)
+  })
 
-  return null;
+  return null
 }
-
 // Cube component: renders the full cube with 6 faces,
 // but only displays content on the 4 “active” faces.
 function Cube({ slides, faceTransforms, cubeOrientations, currentSlide, started, displayIndex }) {
@@ -156,6 +172,12 @@ function App() {
     {
       component: <Slide9 />,
     },
+    {
+      component: <Slide10 />,
+    },
+    {
+      component: <Slide11 />,
+    },
   ];
 
   const fullFaceTransforms = useMemo(
@@ -192,19 +214,30 @@ function App() {
 
   return (
     <div style={{ width: '100vw', height: '100vh', background: '#000' }}>
-      <Canvas camera={{ position: [0, 30, 10], fov: 50 }} dpr={[1, 2]} onClick={handleClick}>
+      <Canvas camera={{ position: [0, 0, 300], fov: 45 }} dpr={[1, 2]} onClick={handleClick}>
         <ambientLight intensity={0.5} />
-        {/* Fondo interactivo */}
         <InteractiveBackground />
-        <CameraAnimator started={started} />
-        <Cube
-          slides={slides}
-          faceTransforms={fullFaceTransforms}
-          cubeOrientations={fullOrientations}
-          currentSlide={currentSlide}
-          started={started}
-          displayIndex={displayIndex}
-        />
+        <CameraAnimator started={started} currentSlide={currentSlide} />
+
+        {(() => {
+          switch (currentSlide) {
+            case 9:
+              return <Slide10 active={started} />
+            case 10:
+              return <Slide11 active={started} />
+            default:
+              return (
+                <Cube
+                  slides={slides}
+                  faceTransforms={fullFaceTransforms}
+                  cubeOrientations={fullOrientations}
+                  currentSlide={currentSlide}
+                  started={started}
+                  displayIndex={displayIndex}
+                />
+              )
+          }
+        })()}
       </Canvas>
     </div>
   );
