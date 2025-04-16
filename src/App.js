@@ -10,14 +10,16 @@ import Slide1 from './Slide1';
 import Slide2 from './Slide2';
 import Slide3 from './Slide3';
 import Slide4 from './Slide4';
-import InteractiveBackground from './efects/InteractiveBackground';  // Importa el fondo interactivo
 import Slide5 from './Slide5';
+import InteractiveBackground from './efects/InteractiveBackground';  // Importa el fondo interactivo
 import Slide6 from './Slide6';
 import Slide7 from './Slide7';
 import Slide8 from './Slide8';
 import Slide9 from './Slide9';
-import Slide10 from './Slide10';
-import Slide11 from './Slide11';
+import Slide66 from './Slide66';
+import Slide77 from './Slide77';
+// import Slide10 from './Slide3';
+// import Slide11 from './Slide3b';
 
 // Camera animator: starts from afar and animates to [0,0,10]
 function CameraAnimator({ started, currentSlide }) {
@@ -31,13 +33,13 @@ function CameraAnimator({ started, currentSlide }) {
     if (!started) return
 
     switch (currentSlide) {
-      case 9:
-        // Slide10: cámara alejada para el mapa
+      case 3:
+        // Slide4: cámara alejada para el mapa
         api.start({ position: [0, 0, 300] })
         break
 
-      case 10:
-        // Slide11: cámara intermedia (ajusta valores según necesites)
+      case 4:
+        // Slide5: cámara intermedia (ajusta valores según necesites)
         api.start({ position: [0, 0, 300] })
         break
 
@@ -173,10 +175,10 @@ function App() {
       component: <Slide9 />,
     },
     {
-      component: <Slide10 />,
+      component: <Slide66 />,
     },
     {
-      component: <Slide11 />,
+      component: <Slide77 />,
     },
   ];
 
@@ -221,10 +223,10 @@ function App() {
 
         {(() => {
           switch (currentSlide) {
-            case 9:
-              return <Slide10 active={started} />
-            case 10:
-              return <Slide11 active={started} />
+            case 3:
+              return <Slide4 active={started} />
+            case 4:
+              return <Slide5 active={started} />
             default:
               return (
                 <Cube

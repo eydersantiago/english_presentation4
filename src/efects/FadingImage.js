@@ -28,7 +28,7 @@ export default function FadingImage({ active }) {
       brightness: active ? 0.3 : 1.0,
       contrast:   active ? 0.8 : 1.0,
       delay:      700,                     // opcional
-      config:     { duration: 7000 },      // <— aquí tu 5 s
+      config:     { duration: 3000 },      // <— aquí tu 5 s
       // no hace falta immediate: false, es el valor por defecto
     })
   }, [active, api])
