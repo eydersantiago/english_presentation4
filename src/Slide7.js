@@ -34,12 +34,12 @@ const Slide7 = () => {
         </ZoomInText>
       </Billboard>
 
-      <Gif 
+      {/* <Gif 
         url="/statics/ley1.mp4" 
         position={[2.4, 0, 0.1]}
         scale={[1.5, 1.5]} 
         renderOrder={3}
-      />
+      /> */}
 
       <Gif 
         url="/statics/ley2.mp4" 
@@ -57,6 +57,26 @@ const Slide7 = () => {
           renderOrder={3}
         />
       </Billboard>
+
+      <Image
+        url="/statics/agree3.png"
+        position={[3, 0.7, 1]}
+        scale={[1.8, 3.2, 0.1]}
+        transparent={true}      // habilita transparencia
+        alphaTest={0.1}         // descarta píxeles con alpha < 0.1
+        depthTest={false}       // siempre encima de lo que haya detrás
+        renderOrder={10}
+      />
+
+      <Image
+        url="/statics/border1.png"
+        position={[0, 0, 0.1]}
+        scale={[9, 12, 0.1]}
+        transparent={true}      // habilita transparencia
+        alphaTest={0.1}         // descarta píxeles con alpha < 0.1
+        depthTest={false}       // siempre encima de lo que haya detrás
+        renderOrder={3}
+      />
 
       <Billboard position={[-3, -1.75, 0.1]}>
         <ZoomInText

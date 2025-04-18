@@ -1,14 +1,14 @@
 import React from 'react';
 import { Billboard, Image } from '@react-three/drei';
 import { PulseText } from './efects/TextAnimations';
-//import Gif from './efects/Gif';
+import Gif from './efects/Gif';
 
 
 //acá digo que evita el sufrimiento para el afectado y su familia, y que es un acto de amor y compasión.
 const Slide66 = () => {
   return (
     <>
-      <Billboard position={[0, 2, -0.1]}>
+      <Billboard position={[0, 2, 0.1]}>
         <PulseText
           fontSize={0.7}
           color="#fff"
@@ -54,13 +54,27 @@ const Slide66 = () => {
 
         <Billboard>
             <Image
-              url="/statics/agree.png"
+              url="/statics/disagree5.png"
               position={[0, 0, 0.1]}
               scale={[1.5, 1.5, 1.5]}
               depthTest={false}
               renderOrder={3}
             />
           </Billboard>
+
+      <Gif 
+        url="/statics/agree44.mp4" 
+        position={[1.5, -2, 0.1]}
+        scale={[2.5, 2.5]} 
+        renderOrder={3}
+      />
+
+<     Gif 
+        url="/statics/disagree2.mp4" 
+        position={[-1.5, -2, 0.1]}
+        scale={[2.5, 2.5]} 
+        renderOrder={3}
+      />
     </>
   );
 };

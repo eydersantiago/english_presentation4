@@ -15,54 +15,62 @@ import InteractiveBackground from './efects/InteractiveBackground';  // Importa 
 import Slide6 from './Slide6';
 import Slide7 from './Slide7';
 import Slide8 from './Slide8';
-import Slide88 from './Slide88';
 import Slide9 from './Slide9';
+import Slide10 from './Slide10';
+import Slide88 from './Slide88';
+import Slide99 from './Slide99';
 import Slide66 from './Slide66';
-import Slide77 from './Slide77';
+import Slide11 from './Slide11';
+import Slide100 from './Slide100';
 // import Slide10 from './Slide3';
 // import Slide11 from './Slide3b';
 
 // Camera animator: starts from afar and animates to [0,0,10]
 function CameraAnimator({ started, currentSlide }) {
-  const { camera } = useThree()
+  const { camera } = useThree();
   const [{ position }, api] = useSpring(() => ({
-    position: [0, 30, 10], // posición por defecto
+    position: [0, 30, 10],
     config: { mass: 1, tension: 170, friction: 26 },
-  }))
+  }));
 
   useEffect(() => {
-    if (!started) return
+    if (!started) return;
 
     switch (currentSlide) {
       case 3:
-        // Slide4: cámara alejada para el mapa
-        api.start({ position: [0, 0, 300] })
-        break
-
       case 4:
-        // Slide5: cámara intermedia (ajusta valores según necesites)
-        api.start({ position: [0, 0, 300] })
-        break
-
       case 7:
-        // Slide8: cámara intermedia (ajusta valores según necesites)
-        api.start({ position: [0, 0, 300] })
-        break
-  
+        api.start({ position: [0, 0, 300] });
+        break;
+
+      case 8:
+        api.start({ position: [0, 0, 250] });
+        break;
+
+      case 9:
+        api.start({ position: [0, 0, 150] });
+        break;
+
+      case 14: // Slide100 especial
+        (async () => {
+          await api.start({ position: [0, 0, 500], config: { duration: 1000 } }); // Aleja rápido
+          await api.start({ position: [300, 100, 500], config: { duration: 1000 } }); // Mueve lateral
+          await api.start({ position: [0, 0, 100], config: { duration: 1000 } }); // Acerca con efecto
+        })();
+        break;
 
       default:
-        // Slides 1–9: posición por defecto
-        api.start({ position: [0, 0, 10] })
-        break
+        api.start({ position: [0, 0, 10] });
+        break;
     }
-  }, [started, currentSlide, api])
+  }, [started, currentSlide, api]);
 
   useFrame(() => {
-    camera.position.set(...position.get())
-    camera.lookAt(0, 0, 0)
-  })
+    camera.position.set(...position.get());
+    camera.lookAt(0, 0, 0);
+  });
 
-  return null
+  return null;
 }
 // Cube component: renders the full cube with 6 faces,
 // but only displays content on the 4 “active” faces.
@@ -182,10 +190,22 @@ function App() {
       component: <Slide9 />,
     },
     {
+      component: <Slide10 />,
+    },
+    {
       component: <Slide66 />,
     },
     {
-      component: <Slide77 />,
+      component: <Slide88 />,
+    },
+    {
+      component: <Slide99 />,
+    },
+    {
+      component: <Slide11 />,
+    },
+    {
+      component: <Slide100 />,
     },
   ];
 
@@ -236,6 +256,10 @@ function App() {
               return <Slide5 active={started} />
             case 7:
               return <Slide8 active={started} />
+            case 8:
+              return <Slide9 active={started} />
+            case 9:
+              return <Slide10 active={started} />
             default:
               return (
                 <Cube
