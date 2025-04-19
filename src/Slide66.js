@@ -38,20 +38,6 @@ const Slide66 = () => {
 
         
 
-        <Billboard position={[3, -1.75, -0.1]}>
-            <PulseText
-                fontSize={0.15}
-                color="#fff"
-                anchorX="left"
-                anchorY="bottom"
-                depthTest={false}
-                renderOrder={3}
-                active={true}
-            >
-                What is my opinion?
-            </PulseText>
-        </Billboard>
-
         <Billboard>
             <Image
               url="/statics/disagree5.png"
