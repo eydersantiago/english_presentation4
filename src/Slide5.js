@@ -16,7 +16,7 @@ export default function Slide5({ active }) {
       <WorldMapPassive active={active} />
 
       <Billboard 
-        position={[-180, 100, 2]} 
+        position={[-170, 100, 2]} 
         renderOrder={100} 
         follow={false}
       >

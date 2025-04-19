@@ -16,7 +16,7 @@ export default function Slide4({ active }) {
       <WorldMapActive active={active} />
 
       <Billboard 
-        position={[-180, 100, 2]} 
+        position={[-170, 100, 2]} 
         renderOrder={100} 
         follow={false}
       >
