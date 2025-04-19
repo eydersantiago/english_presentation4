@@ -16,7 +16,7 @@ export default function Slide10({ active }) {
         <WorldMapEcuador active={active} />
 
       <Billboard 
-        position={[-90, 50, 2]} 
+        position={[-85, 50, 2]} 
         renderOrder={100} 
         follow={false}
       >
