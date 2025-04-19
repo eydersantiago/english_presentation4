@@ -22,7 +22,7 @@ const Slide66 = () => {
         </PulseText>
       </Billboard>
 
-        <Billboard position={[0, 1.4, -0.1]}>
+        <Billboard position={[0, 1.4, 0.1]}>
             <PulseText
                 fontSize={0.5}
                 color="#fff"
@@ -32,7 +32,7 @@ const Slide66 = () => {
                 renderOrder={3}
                 active={true}
             >
-                of euthanasia
+                -against of euthanasia
             </PulseText>
         </Billboard>
 
